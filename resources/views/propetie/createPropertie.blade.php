@@ -35,13 +35,13 @@
             </form>
         </div>
 
-        @foreach ($properties as $propertie)
+        {{-- @foreach ($properties as $propertie)
             @php
                 $images = json_decode($propertie->image);
             @endphp
             @foreach ($images as $img)
                 <img src="{{ asset('storage/img/' . $img) }}" alt="">
             @endforeach
-        @endforeach
-    @endsection
-</div>
+        @endforeach --}}
+    </div>
+@endsection

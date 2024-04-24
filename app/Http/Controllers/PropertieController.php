@@ -12,9 +12,11 @@ class PropertieController extends Controller
      */
     public function index()
     {
-        //
-        $properties = Propertie::all();
-        return view('propetie.createPropertie', compact('properties'));
+        return view('propetie.createPropertie');
+    }
+    public function index_home()
+    {
+        return view('home.home');
     }
 
     /**
@@ -65,7 +67,9 @@ class PropertieController extends Controller
      */
     public function show(Propertie $propertie)
     {
-        //
+        // dd($propertie);
+        $place = Propertie::where('id', $propertie->id)->first();
+        return view('propetie.show', compact('place'));
     }
 
     /**
