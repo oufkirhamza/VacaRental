@@ -3,6 +3,7 @@
 use App\Http\Controllers\DoubleAuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertieController;
+use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,6 +17,8 @@ Route::get('/dashboard', function () {
 })->middleware('auth')->name('dashboard');
 
 Route::middleware(['auth','2fa'])->group(function () {
+    Route::post('/reservation/create/{propertie}', [ReservationController::class, 'store'])->name('reservation.store');
+    Route::get('/reservation/show/{propertie}', [ReservationController::class, 'show'])->name('reservation.show');
     Route::get('/Home', [PropertieController::class, 'index_home'])->name('home');
     Route::get('/propertie', [PropertieController::class, 'index'])->name('propertie.index');
     Route::get('/propertie/{propertie}',[PropertieController::class, 'show'])->name('propertie.show');

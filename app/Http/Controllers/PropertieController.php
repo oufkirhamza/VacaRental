@@ -67,9 +67,8 @@ class PropertieController extends Controller
      */
     public function show(Propertie $propertie)
     {
-        // dd($propertie);
-        $place = Propertie::where('id', $propertie->id)->first();
-        return view('propetie.show', compact('place'));
+        
+        return view('propetie.show', compact('propertie'));
     }
 
     /**

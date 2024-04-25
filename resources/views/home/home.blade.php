@@ -15,9 +15,9 @@
 
     </div>
 </div>
-    <div class="flex gap-4 py-2 ">
+    <div class="flex flex-wrap justify-center gap-4 py-2 ">
         @foreach ($properties as $propertie)
-            <div onclick="window.location.href = '{{ route('propertie.show', $propertie) }}'" class="w-[25%] py-3 rounded-lg bg-gray-400">
+            <div  class="w-[25%] py-3 rounded-lg bg-gray-400">
                 <!-- component -->
                 <main class="grid ">
                     <div x-data="imageSlider"
@@ -77,8 +77,8 @@
                         }));
                     });
                 </script>
-                <div class="px-4">
-                    <div class="flex justify-between items-center">
+                <div onclick="window.location.href = '{{ route('propertie.show', $propertie) }}'" class="px-4  cursor-pointer">
+                    <div class="flex justify-between items-center  cursor-pointer">
                         <h1 class="text-2xl font-bold">{{ $propertie->title }}</h1> 
                         <h1><i class="fa-solid fa-star"></i> 3,5</h1>
                     </div>

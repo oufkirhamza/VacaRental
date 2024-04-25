@@ -2,32 +2,29 @@
 @section('content')
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
-
-            // const {
-            //     data
-            // } = await axios.get("/calendar/show")
-
-            // const events = data.events;
-
-            // console.log(data);
+            const propertyId = {{ $propertie->id }}; 
+            console.log(propertyId);
+            const response = await axios.get(`/reservation/show/${propertyId}`);
+            const events = response.data.events;
+            console.log(events);
 
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 // object below should be in this arrangement
                 headerToolbar: {
-                    left: 'dayGridMonth,timeGridWeek,timeGridDay',
+                    left: 'dayGridMonth',
                     center: 'title',
-                    right: 'listMonth,listWeek,listDay'
+                    // right: 'listMonth,listWeek,listDay'
                 },
                 views: {
                     listDay: { // Customize the name for listDay
                         buttonText: 'Day Events',
                     },
                     listWeek: { // Customize the name for listWeek
-                        buttonText: 'Week Events'
+                        buttonText: 'Week Events',
                     },
                     listMonth: { // Customize the name for listMonth
-                        buttonText: 'Month Events'
+                        buttonText: 'Month Events',
                     },
                     timeGridWeek: {
                         buttonText: 'Week', // Customize the button text
@@ -38,16 +35,18 @@
                     dayGridMonth: {
                         buttonText: "Month",
                     },
-
                 },
-                initialView: "timeGridWeek",
+                initialView: "dayGridMonth",
                 selectable: true,
                 selectMirror: true,
                 nowIndicator: true,
                 selectOverlap: true,
                 weekends: true,
                 events: events,
-                // slotMinTime: "09:00:00", 
+                selectOverlap: function(events) {
+                    return events.display === 'background';
+                },
+                // slotMinTime: "09:00:00",
                 // slotMaxTime: "19:00:00",
 
                 selectAllow: (info) => {
@@ -57,10 +56,10 @@
                 select: (info) => {
                     let start = info.start
                     let end = info.end
-                    if (end.getDate() - start.getDate() > 0 && !info.allDay) {
-                        calendar.unselect()
-                        return
-                    }
+                    // if (end.getDate() - start.getDate() > 0 && !info.allDay) {
+                    //     calendar.unselect()
+                    //     return
+                    // }
                     document.getElementById("modalConfirm").click()
                     const formatdate = (date) => {
                         let year = String(date.getFullYear())
@@ -75,17 +74,17 @@
                         }
                     }
                     document.getElementById('start-date').value = formatdate(start).day
-                    document.getElementById('start-time').value = formatdate(start).time
+                    // document.getElementById('start-time').value = formatdate(start).time
                     document.getElementById('end-date').value = formatdate(end).day
-                    document.getElementById('end-time').value = formatdate(end).time
+                    // document.getElementById('end-time').value = formatdate(end).time
                 },
             });
             calendar.render();
-
         });
     </script>
 
     {{-- <h1> Hello {{ $place->title }}</h1> --}}
+    @include('propetie.reservation_modal')
     <div class="p-10 flex flex-col gap-2">
         <div id="default-carousel" class="relative w-full" data-carousel="slide">
             <!-- Carousel wrapper -->
@@ -93,7 +92,7 @@
                 <!-- Item 1 -->
                 {{-- @foreach ($properties as $propertie) --}}
                 @php
-                    $images = json_decode($place->image);
+                    $images = json_decode($propertie->image);
                 @endphp
                 @foreach ($images as $img)
                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
@@ -131,19 +130,19 @@
                 </span>
             </button>
         </div>
-        <div>
-            <div class="border rounded-lg w-[30%] px-1 py-3">
+        <div class="flex justify-between items-start">
+            <div class="border rounded-lg w-[30%] px-2 flex flex-col gap-3 py-3">
                 <div class="flex justify-between w-full items-center">
-                    <h1 class="text-2xl font-bold">{{ $place->title }}</h1>
+                    <h1 class="text-2xl font-bold">{{ $propertie->title }}</h1>
                     <h1><i class="fa-solid fa-star text-yellow-400"></i> 3,5</h1>
-                    <p>{{ $place->member }}</p>
+                    <p>{{ $propertie->member }}</p>
                 </div>
-                <p class="text-xl"><span>Description : </span> {{ $place->description }}</p>
-                <p class="text-xl"><span>Adress : </span> {{ $place->location }}</p>
-                <p class="text-xl"><span>max guest : </span> {{ $place->max_guest }}</p>
-                <h1 class="text-xl"> Price per night : {{ $place->price_per_night }} </h1>
+                <p class="text-xl"><span>Description : </span> {{ $propertie->description }}</p>
+                <p class="text-xl"><span>Adress : </span> {{ $propertie->location }}</p>
+                <p class="text-xl"><span>max guest : </span> {{ $propertie->max_guest }}</p>
+                <h1 class="text-xl"> Price per night : {{ $propertie->price_per_night }} </h1>
             </div>
-            <div>
+            <div class="w-[60%] p-5">
                 <div id='calendar'></div>
             </div>
         </div>
