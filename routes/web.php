@@ -4,6 +4,8 @@ use App\Http\Controllers\DoubleAuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertieController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\SearchController;
+use App\Http\Controllers\StripeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -16,14 +18,24 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware('auth')->name('dashboard');
 
+
 Route::middleware(['auth','2fa'])->group(function () {
+    // search
+    Route::get('/search', [SearchController::class, 'search'])->name('search');
+    // stripe
+    // Route::get('/session', [StripeController::class, 'session']);
+    Route::get('/success', [StripeController::class, 'success'])->name("success");
+    // reservation
     Route::post('/reservation/create/{propertie}', [ReservationController::class, 'store'])->name('reservation.store');
     Route::get('/reservation/show/{propertie}', [ReservationController::class, 'show'])->name('reservation.show');
+    // propertie
     Route::get('/Home', [PropertieController::class, 'index_home'])->name('home');
     Route::get('/propertie', [PropertieController::class, 'index'])->name('propertie.index');
     Route::get('/propertie/{propertie}',[PropertieController::class, 'show'])->name('propertie.show');
     Route::post('/propertie/create', [PropertieController::class, 'store'])->name('propertie.store');
+    // 2fa
     Route::put("/doubleAuth/enable" , [DoubleAuthController::class , "authSwitcher"])->name('doubleAuth.switch');
+    // profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

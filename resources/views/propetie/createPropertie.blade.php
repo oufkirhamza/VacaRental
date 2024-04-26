@@ -19,6 +19,10 @@
                     <input class="rounded-lg" type="text" name="location">
                 </div>
                 <div class="flex flex-col">
+                    <label for="">City</label>
+                    <input class="rounded-lg" type="text" name="city">
+                </div>
+                <div class="flex flex-col">
                     <label for="">Price per night</label>
                     <input class="rounded-lg" type="number" name="price_per_night">
                 </div>

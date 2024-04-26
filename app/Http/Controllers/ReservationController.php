@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Propertie;
 use App\Models\Reservation;
+use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
+use Stripe\Checkout\Session;
+use Stripe\Stripe;
 
 class ReservationController extends Controller
 {
@@ -39,7 +43,39 @@ class ReservationController extends Controller
             'startDate' => $request->startDate,
             'endDate' => $request->endDate,
         ]);
-        return back();
+
+        Stripe::setApiKey(config('stripe.sk'));
+
+        $event = Propertie::where('id', $request->propertie_id)->first();
+
+        // dd($event);
+        $startDate = Carbon::parse($request->startDate);
+        $endDate = Carbon::parse($request->endDate);
+        // dd($endDate.date('Y-m-d'));
+        $days = $startDate->diffInDays($endDate);
+        $amount = $event->price_per_night . "00";
+        // dd($amount);
+        $session = Session::create([
+            'line_items' => [
+                [
+                    'price_data' => [
+                        'currency' => 'usd',
+                        'product_data' => [
+                            "name" => "LionsGeek Product",
+                            "description" => "vacation rental"
+                        ],
+                        'unit_amount' => $amount,
+                    ],
+                    'quantity' => $days,
+                ],
+
+            ],
+            'mode' => 'payment', // the mode of payment
+            'success_url' => route('success'), // route when success 
+            'cancel_url' => route('home'), // route when failed or canceled
+        ]);
+
+        return redirect()->away($session->url);
     }
 
     public function show($propertie)

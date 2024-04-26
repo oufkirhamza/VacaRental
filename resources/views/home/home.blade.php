@@ -1,23 +1,33 @@
 @extends('layouts.index')
 @section('content')
-<div>
-    <div class="hero_home">
-        <div class="bg-[#0a1f4696] w-full flex justify-center items-center h-[50vh]">
-            <div class="flex w-[50%] mx-10 rounded bg-white">
-                <input class=" w-full border-none bg-transparent px-4 py-1 text-gray-400 outline-none focus:outline-none " type="search" name="search" placeholder="Search..." />
-                <button type="submit" class="m-2 rounded bg-blue-600 px-4 py-2 text-white">
-                    <svg class="fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;" xml:space="preserve" width="512px" height="512px">
-                    <path d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
-                    </svg>
-                </button>
-            </div>
-        </div>
+    <div>
+        <div class="hero_home">
+            <div class="bg-[#0a1f4696] w-full flex justify-center items-center h-[50vh]">
+                <form action="{{ route('search') }}" method="GET">
+                    <div class="flex w-[50%] mx-10 rounded bg-white">
+                        <input
+                            class=" w-full border-none bg-transparent px-4 py-1 outline-none focus:outline-none "
+                            type="search" name="search" placeholder="Search..." />
 
+                        <button type="submit" class="m-2 rounded bg-blue-600 px-4 py-2 text-white">
+                            <svg class="fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg"
+                                xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
+                                viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;"
+                                xml:space="preserve" width="512px" height="512px">
+                                <path
+                                    d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
     </div>
-</div>
+
     <div class="flex flex-wrap justify-center gap-4 py-2 ">
         @foreach ($properties as $propertie)
-            <div  class="w-[25%] py-3 rounded-lg bg-gray-400">
+            <div class="w-[25%] py-3 rounded-lg bg-gray-400">
                 <!-- component -->
                 <main class="grid ">
                     <div x-data="imageSlider"
@@ -57,11 +67,12 @@
                         Alpine.data("imageSlider", () => ({
                             currentIndex: 1,
                             images: [
-                                @php
-                                    $images = json_decode($propertie->image);
+                                // @php
+                                    //     $images = json_decode($propertie->image);
+                                    //
                                 @endphp
-                                @foreach ($images as $img)
-                                    "{{ asset('storage/img/' . $img) }}",
+                                @foreach ($propertie->images as $image)
+                                    "{{ asset('storage/img/' . $image->image) }}",
                                 @endforeach
                             ],
                             previous() {
@@ -77,15 +88,22 @@
                         }));
                     });
                 </script>
-                <div onclick="window.location.href = '{{ route('propertie.show', $propertie) }}'" class="px-4  cursor-pointer">
+                <div onclick="window.location.href = '{{ route('propertie.show', $propertie) }}'"
+                    class="px-4  cursor-pointer">
                     <div class="flex justify-between items-center  cursor-pointer">
-                        <h1 class="text-2xl font-bold">{{ $propertie->title }}</h1> 
+                        <h1 class="text-2xl font-bold">{{ $propertie->title }}</h1>
                         <h1><i class="fa-solid fa-star"></i> 3,5</h1>
                     </div>
                     <p>{{ $propertie->description }}</p>
                     <p>{{ $propertie->location }}</p>
                     <span> {{ $propertie->max_guest }} member</span>
-                    <h5>{{ $propertie->price_per_night }}$</h5> 
+                    <h5>{{ $propertie->price_per_night }}$</h5>
+                    {{-- <div>
+                        @dump($propertie->images)
+                        @foreach ($propertie->images as $image)
+                            <img src="{{ asset('storage/img/' . $image->image) }}" alt="">
+                        @endforeach
+                    </div> --}}
                 </div>
 
             </div>
