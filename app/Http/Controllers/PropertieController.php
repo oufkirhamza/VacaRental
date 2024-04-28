@@ -20,7 +20,23 @@ class PropertieController extends Controller
     }
     public function index_home()
     {
-        return view('home.home');
+        $latestReviews = Review::latest()->take(3)->get();
+        $allrating = 0;
+        $users = count(User::all());
+        $reviews = Review::all();
+        $numReviews = count($reviews);
+        foreach ($reviews as $review) {
+            $allrating += $review->rating;
+        }
+        if ($numReviews == 0) {
+
+
+            $rating = $allrating / 1;
+        } else {
+            
+            $rating = $allrating / $numReviews;
+        }
+        return view('home.home', compact('rating', 'numReviews'));
     }
 
     /**
@@ -55,7 +71,7 @@ class PropertieController extends Controller
         //     $image->storeAs("public/img", $imageName);
         //     $imagePaths[] = $imageName;
         //     }
-            // dd($request);
+        // dd($request);
         $images = $request->file("image");
         $property = Propertie::create([
             'user_id' => $request->user_id,
@@ -92,7 +108,14 @@ class PropertieController extends Controller
         foreach ($reviews as $review) {
             $allrating += $review->rating;
         }
-        $rating = $allrating / $numReviews;
+        if ($numReviews == 0) {
+
+
+            $rating = $allrating / 1;
+        } else {
+            
+            $rating = $allrating / $numReviews;
+        }
 
         return view('propetie.show', compact('propertie', 'latestReviews', 'rating', 'numReviews'));
     }

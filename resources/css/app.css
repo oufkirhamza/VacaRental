@@ -24,55 +24,50 @@
     margin: 0;
 }
 
-
-.rating {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: start;
-    gap: 0.3rem;
-    --stroke: #666;
-    --fill: #ffc73a;
+.avatar {
+    /* max-width: 100%; */
+    width: 2rem;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    outline: 2px solid #1E429F;
+    outline-offset: 2px;
+    fill: #1E429F;
 }
 
-.rating input {
-    appearance: unset;
+.rating {
+    width: fit-content;
+}
+.rating:not(:checked)>input {
+    position: absolute;
+    appearance: none;
     display: none;
 }
 
-.rating label {
+.rating:not(:checked)>label {
+    
+    float: inline-end;
     cursor: pointer;
+    font-size: 30px;
+    color: #666;
 }
 
-.rating svg {
-    width: 2rem;
-    height: 2rem;
-    overflow: visible;
-    fill: transparent;
-    stroke: var(--stroke);
-    stroke-linejoin: bevel;
-    stroke-dasharray: 12;
-    animation: idle 4s linear infinite;
-    transition: stroke 0.2s, fill 0.5s;
+.rating:not(:checked)>label:before {
+    content: '★';
 }
 
-@keyframes idle {
-    from {
-        stroke-dashoffset: 24;
-    }
+.rating>input:checked+label:hover,
+.rating>input:checked+label:hover~label,
+.rating>input:checked~label:hover,
+.rating>input:checked~label:hover~label,
+.rating>label:hover~input:checked~label {
+    color: #e58e09;
 }
 
-.rating label:hover svg {
-    stroke: var(--fill);
+.rating:not(:checked)>label:hover,
+.rating:not(:checked)>label:hover~label {
+    color: #ff9e0b;
 }
 
-.rating input:checked~label svg {
-    transition: 0s;
-    animation: idle 4s linear infinite, yippee 0.75s backwards;
-    fill: var(--fill);
-    stroke: var(--fill);
-    stroke-opacity: 0;
-    stroke-dasharray: 0;
-    stroke-linejoin: miter;
-    stroke-width: 8px;
+.rating>input:checked~label {
+    color: #ffa723;
 }
-

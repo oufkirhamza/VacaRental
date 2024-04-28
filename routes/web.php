@@ -34,7 +34,7 @@ Route::middleware(['auth'])->group(function () {
     // propertie
     Route::get('/Home', [PropertieController::class, 'index_home'])->name('home');
     Route::get('/propertie', [PropertieController::class, 'index'])->name('propertie.index')->middleware("role:Owner");
-    Route::get('/propertie/{propertie}',[PropertieController::class, 'show'])->name('propertie.show');
+    Route::get('/propertie/{propertie}',[PropertieController::class, 'show'])->name('propertie.show'); 
     Route::post('/propertie/create', [PropertieController::class, 'store'])->name('propertie.store');
     // 2fa
     Route::put("/doubleAuth/enable" , [DoubleAuthController::class , "authSwitcher"])->name('doubleAuth.switch');

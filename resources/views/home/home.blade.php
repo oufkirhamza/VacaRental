@@ -7,7 +7,6 @@
                     <div class="flex w-[50%] mx-10 rounded bg-white">
                         <input class=" w-full border-none bg-transparent px-4 py-1 outline-none focus:outline-none "
                             type="search" name="search" placeholder="Search..." />
-
                         <button type="submit" class="m-2 rounded bg-blue-600 px-4 py-2 text-white">
                             <svg class="fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
@@ -23,132 +22,136 @@
 
         </div>
     </div>
-
-    <div class="flex flex-wrap justify-center gap-4 py-2 ">
-        @foreach ($properties as $propertie)
-            <div class="w-[25%] py-3 rounded-lg bg-gray-400">
-                <main class="grid ">
-                    <div x-data="imageSlider"
-                        class="relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4">
-                        <div
-                            class="absolute right-5 top-5 z-10 rounded-full bg-gray-600 px-2 text-center text-sm text-white">
-                            <span x-text="currentIndex"></span>/<span x-text="images.length"></span>
-                        </div>
-
-                        <button @click="previous()"
-                            class="absolute left-5 top-1/2 z-10 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100 shadow-md">
-                            <i class="fas fa-chevron-left font-bold text-gray-500"></i>
-                        </button>
-
-                        <button @click="forward()"
-                            class="absolute right-5 top-1/2 z-10 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full bg-gray-100 shadow-md">
-                            <i class="fas fa-chevron-right  font-bold text-gray-500"></i>
-                        </button>
-
-                        <div class="relative h-52" style="width: 20rem">
-                            <template x-for="(image, index) in images">
-                                <div x-show="currentIndex == index + 1"
-                                    x-transition:enter="transition transform duration-300"
-                                    x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-                                    x-transition:leave="transition transform duration-300"
-                                    x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-                                    class="absolute top-0">
-                                    <img :src="image" alt="image" class="rounded-sm" />
-                                </div>
-                            </template>
-                        </div>
-                    </div>
-                </main>
-
-                <script>
-                    document.addEventListener("alpine:init", () => {
-                        Alpine.data("imageSlider", () => ({
-                            currentIndex: 1,
-                            images: [
-                                // @php
-                                    //     $images = json_decode($propertie->image);
-                                    //
-                                @endphp
-                                @foreach ($propertie->images as $image)
-                                    "{{ asset('storage/img/' . $image->image) }}",
-                                @endforeach
-                            ],
-                            previous() {
-                                if (this.currentIndex > 1) {
-                                    this.currentIndex = this.currentIndex - 1;
-                                }
-                            },
-                            forward() {
-                                if (this.currentIndex < this.images.length) {
-                                    this.currentIndex = this.currentIndex + 1;
-                                }
-                            },
-                        }));
-                    });
-                </script>
-                <div onclick="window.location.href = '{{ route('propertie.show', $propertie) }}'"
-                    class="px-4  cursor-pointer">
-                    <div class="flex justify-between items-center  cursor-pointer">
-                        <h1 class="text-2xl font-bold">{{ $propertie->title }}</h1>
-                        <h1><i class="fa-solid fa-star"></i> 3,5</h1>
-                    </div>
-                    <p>{{ $propertie->description }}</p>
-                    <p>{{ $propertie->location }}</p>
-                    <span> {{ $propertie->max_guest }} member</span>
-                    <h5>{{ $propertie->price_per_night }}$</h5>
-                    {{-- <div>
-                        @dump($propertie->images)
+    <div class="py-16 flex flex-col gap-4 bg-gray-200">
+        <div class="flex flex-wrap justify-center gap-4">
+            @foreach ($properties as $propertie)
+                <div class="relative flex w-80 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+                    <div
+                        class="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40 bg-gradient-to-r from-blue-500 to-blue-600">
                         @foreach ($propertie->images as $image)
                             <img src="{{ asset('storage/img/' . $image->image) }}" alt="">
                         @endforeach
-                    </div> --}}
+                    </div>
+                    <div class="p-6 font-medium">
+                        <div class="flex justify-between">
+                            <h5
+                                class="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
+                                {{ $propertie->title }}
+                            </h5>
+                            <h5><i class="fa-solid fa-star text-yellow-300"></i> {{ $rating }} ( {{ $numReviews }}
+                                reviews) </h5>
+                        </div>
+                        <p class="block font-sans text-base font-light leading-relaxed text-inherit antialiased">
+                            <i class="fa-solid fa-location-dot"></i>
+                            {{ $propertie->location }}, {{ $propertie->city }}
+                        </p>
+                        <p class="block font-sans text-base font-light leading-relaxed text-inherit antialiased">
+                            <i class="fa-solid fa-people-group"></i>
+                            {{ $propertie->max_guest }} travelers
+                        </p>
+                        <p class="block font-sans text-base font-light leading-relaxed text-inherit antialiased">
+                            <i class="fa-solid fa-money-bill"></i>
+                            {{ $propertie->price_per_night }} $
+                        </p>
+                    </div>
+                    <div class="p-6 pt-0">
+                        <button data-ripple-light="true" type="button"
+                            class="select-none rounded-lg bg-[#002e45] py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-900/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                            <a href="{{ route('propertie.show', $propertie) }}">Book now</a>
+                        </button>
+                    </div>
                 </div>
+            @endforeach
+        </div>
+        <div class="w-full flex justify-center">
+            <button type="button"
+                class="select-none rounded-lg bg-[#002e45] py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-900/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                <a href="">All properties</a>
+            </button>
+        </div>
+    </div>
 
-            </div>
-        @endforeach
-        <div class="bg-orange-400 w-full flex flex-col justify-center items-center py-2">
-            <h1 class="text-2xl font-bold">How It Works</h1>
-            <p class="text-xl">Follow these 3 steps to book your place</p>
-            <div class="flex gap-5 justify-center items-center">
-                <div class="flex items-center my-4 bg-white flex-col justify-center w-[25%] text-center rounded-lg p-4 ">
-                    <div class="w-20 h-20 bg-purple-600 rounded-full flex justify-center items-center text-white text-2xl">
-                        <i class="fa-regular fa-map"></i></div>
-                    <div class="ml-4">
-                        <h1 class="font-bold">01. Search for Location</h1>
-                        <p>Explore various locations and find the perfect place for your stay.</p>
-                    </div>
+    <div class="bg-[#002e45] w-full flex flex-col justify-center items-center py-16">
+        <h1 class="text-2xl text-white font-bold">How It Works</h1>
+        <p class="text-xl text-white">Follow these 3 steps to book your place</p>
+        <div class="flex gap-5 justify-center items-center">
+            <div class="flex items-center my-4 gap-2 bg-white flex-col justify-center w-[25%] text-center rounded-lg p-4 ">
+                <div class="w-20 h-20 bg-blue-700 rounded-full flex justify-center items-center text-white text-2xl">
+                    <i class="fa-regular fa-map"></i>
                 </div>
-                <div class="flex items-center my-4 bg-white flex-col justify-center w-[25%] text-center rounded-lg p-4 ">
-                    <div class="w-20 h-20 bg-purple-600 rounded-full flex justify-center items-center text-white text-2xl">
-                        <i class="fa-regular fa-calendar"></i></div>
-                    <div class="ml-4">
-                        <h1 class="font-bold">02. Select Dates</h1>
-                        <p>Choose your desired check-in and check-out dates.</p>
-                    </div>
-                </div>
-                <div class="flex items-center my-4 bg-white flex-col justify-center w-[25%] text-center rounded-lg p-4 ">
-                    <div class="w-20 h-20 bg-purple-600 rounded-full flex justify-center items-center text-white text-2xl">
-                        <i class="fa-regular fa-handshake"></i></div>
-                    <div class="ml-4">
-                        <h1 class="font-bold">03. Confirm Booking</h1>
-                        <p>Complete your booking and enjoy your stay!</p>
-                    </div>
+                <div class="ml-4">
+                    <h1 class="font-bold">01. Search for Location</h1>
+                    <p>Explore various locations and find the perfect place for your stay.</p>
                 </div>
             </div>
-        </div>
-        <div class="to-blue-600 flex">
-            <div>
-                <h1>Explore Property Type</h1>
-                <p>description</p>
+            <div class="flex items-center my-4 gap-2 bg-white flex-col justify-center w-[25%] text-center rounded-lg p-4 ">
+                <div class="w-20 h-20 bg-blue-700 rounded-full flex justify-center items-center text-white text-2xl">
+                    <i class="fa-regular fa-calendar"></i>
+                </div>
+                <div class="ml-4">
+                    <h1 class="font-bold">02. Select Dates</h1>
+                    <p>Choose your desired check-in and check-out dates.</p>
+                </div>
             </div>
-            <div>
-                <div class="bg-white w-[20%] ">
-                    <h1><i class="fa-solid fa-house"></i></h1>
-                    <h1>Houses</h1>
-                    <p>30 properties</p>
+            <div class="flex items-center my-4 gap-2 bg-white flex-col justify-center w-[25%] text-center rounded-lg p-4 ">
+                <div class="w-20 h-20 bg-blue-700 rounded-full flex justify-center items-center text-white text-2xl">
+                    <i class="fa-regular fa-handshake"></i>
+                </div>
+                <div class="ml-4">
+                    <h1 class="font-bold">03. Confirm Booking</h1>
+                    <p>Complete your booking and enjoy your stay!</p>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="bg-white flex flex-col justify-center gap-6 items-center w-full py-16">
+        <div class="w-[30%] text-[#002e45] text-center px-3">
+            <h1 class="text-3xl font-bold mb-2">Hundreds of Partners Around the World</h1>
+            <p>Every day, we build trust through communication, transparency, and results.</p>
+        </div>
+        <div class="w-full flex justify-center items-center mr-5 gap-5">
+            <div class="bg-gray-200 rounded-lg p-2">
+                <img src="{{ asset('images/partner-icon-2.svg') }}" alt="">
+            </div>
+            <div class="bg-gray-200 rounded-lg p-2">
+                <img src="{{ asset('images/partner-icon-3.svg') }}" alt="">
+            </div>
+            <div class="bg-gray-200 rounded-lg p-2">
+                <img src="{{ asset('images/partner-icon-4.svg') }}" alt="">
+            </div>
+            <div class="bg-gray-200 rounded-lg p-2">
+                <img src="{{ asset('images/partner-icon-5.svg') }}" alt="">
+            </div>
+            <div class="bg-gray-200 rounded-lg p-2">
+                <img src="{{ asset('images/partner-icon-6.svg') }}" alt="">
+            </div>
+        </div>
+
+    </div>
+    <div class="bg-[#002e45] flex w-full py-16">
+        <div class="w-[40%] text-white px-3">
+            <h1 class="text-3xl mb-2">Explore Property Type</h1>
+            <p>Discover a diverse range of rental properties for your next stay. Browse through houses, apartments, and
+                villas available for rent. Find your ideal accommodation among listings created by property owners.</p>
+        </div>
+        <div class="w-[60%] flex justify-center mr-5 gap-5">
+            <div class="bg-white w-[20%] rounded-lg min-h-[27vh] flex flex-col justify-center items-center gap-5 ">
+                <img src="{{ asset('images/property-icon-1.svg') }}" alt="">
+                <h1 class="text-xl font-bold">Houses</h1>
+                <p>30 properties</p>
+            </div>
+            <div class="bg-white w-[20%] rounded-lg min-h-[27vh] flex flex-col justify-center items-center gap-5 ">
+                <img src="{{ asset('images/property-icon-4.svg') }}" alt="">
+                <h1 class="text-xl font-bold">Houses</h1>
+                <p>30 properties</p>
+            </div>
+            <div class="bg-white w-[20%] rounded-lg min-h-[27vh] flex flex-col justify-center items-center gap-5 ">
+                <img src="{{ asset('images/property-icon-3.svg') }}" alt="">
+                <h1 class="text-xl font-bold">Houses</h1>
+                <p>30 properties</p>
+            </div>
+        </div>
+    </div>
 
 
     </div>
