@@ -5,8 +5,7 @@
             <div class="bg-[#0a1f4696] w-full flex justify-center items-center h-[50vh]">
                 <form action="{{ route('search') }}" method="GET">
                     <div class="flex w-[50%] mx-10 rounded bg-white">
-                        <input
-                            class=" w-full border-none bg-transparent px-4 py-1 outline-none focus:outline-none "
+                        <input class=" w-full border-none bg-transparent px-4 py-1 outline-none focus:outline-none "
                             type="search" name="search" placeholder="Search..." />
 
                         <button type="submit" class="m-2 rounded bg-blue-600 px-4 py-2 text-white">
@@ -28,7 +27,6 @@
     <div class="flex flex-wrap justify-center gap-4 py-2 ">
         @foreach ($properties as $propertie)
             <div class="w-[25%] py-3 rounded-lg bg-gray-400">
-                <!-- component -->
                 <main class="grid ">
                     <div x-data="imageSlider"
                         class="relative mx-auto max-w-2xl overflow-hidden rounded-md bg-gray-100 p-2 sm:p-4">
@@ -108,8 +106,50 @@
 
             </div>
         @endforeach
-        <div>
-
+        <div class="bg-orange-400 w-full flex flex-col justify-center items-center py-2">
+            <h1 class="text-2xl font-bold">How It Works</h1>
+            <p class="text-xl">Follow these 3 steps to book your place</p>
+            <div class="flex gap-5 justify-center items-center">
+                <div class="flex items-center my-4 bg-white flex-col justify-center w-[25%] text-center rounded-lg p-4 ">
+                    <div class="w-20 h-20 bg-purple-600 rounded-full flex justify-center items-center text-white text-2xl">
+                        <i class="fa-regular fa-map"></i></div>
+                    <div class="ml-4">
+                        <h1 class="font-bold">01. Search for Location</h1>
+                        <p>Explore various locations and find the perfect place for your stay.</p>
+                    </div>
+                </div>
+                <div class="flex items-center my-4 bg-white flex-col justify-center w-[25%] text-center rounded-lg p-4 ">
+                    <div class="w-20 h-20 bg-purple-600 rounded-full flex justify-center items-center text-white text-2xl">
+                        <i class="fa-regular fa-calendar"></i></div>
+                    <div class="ml-4">
+                        <h1 class="font-bold">02. Select Dates</h1>
+                        <p>Choose your desired check-in and check-out dates.</p>
+                    </div>
+                </div>
+                <div class="flex items-center my-4 bg-white flex-col justify-center w-[25%] text-center rounded-lg p-4 ">
+                    <div class="w-20 h-20 bg-purple-600 rounded-full flex justify-center items-center text-white text-2xl">
+                        <i class="fa-regular fa-handshake"></i></div>
+                    <div class="ml-4">
+                        <h1 class="font-bold">03. Confirm Booking</h1>
+                        <p>Complete your booking and enjoy your stay!</p>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="to-blue-600 flex">
+            <div>
+                <h1>Explore Property Type</h1>
+                <p>description</p>
+            </div>
+            <div>
+                <div class="bg-white w-[20%] ">
+                    <h1><i class="fa-solid fa-house"></i></h1>
+                    <h1>Houses</h1>
+                    <p>30 properties</p>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 @endsection

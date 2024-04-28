@@ -30,7 +30,10 @@ class Propertie extends Model
     }
     public function searchableAs()
     {
-        return 'properties_index'; // Customize the index name if needed
+        return 'properties_index'; 
+    }
+    public function reviews() {
+        return $this->hasMany(Review::class);
     }
 
     public function toSearchableArray()

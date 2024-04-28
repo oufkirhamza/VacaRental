@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Propertie;
 use App\Models\Image;
+use App\Models\Review;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 
@@ -82,8 +84,17 @@ class PropertieController extends Controller
      */
     public function show(Propertie $propertie)
     {
+        $latestReviews = Review::latest()->take(3)->get();
+        $allrating = 0;
+        $users = count(User::all());
+        $reviews = Review::all();
+        $numReviews = count($reviews);
+        foreach ($reviews as $review) {
+            $allrating += $review->rating;
+        }
+        $rating = $allrating / $numReviews;
 
-        return view('propetie.show', compact('propertie'));
+        return view('propetie.show', compact('propertie', 'latestReviews', 'rating', 'numReviews'));
     }
 
     /**

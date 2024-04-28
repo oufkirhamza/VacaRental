@@ -2,11 +2,11 @@
 @section('content')
     <script>
         document.addEventListener('DOMContentLoaded', async function() {
-            const propertyId = {{ $propertie->id }}; 
-            console.log(propertyId);
+            const propertyId = {{ $propertie->id }};
+            // console.log(propertyId);
             const response = await axios.get(`/reservation/show/${propertyId}`);
             const events = response.data.events;
-            console.log(events);
+            // console.log(events);
 
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -130,21 +130,99 @@
                 </span>
             </button>
         </div>
-        <div class="flex justify-between items-start">
-            <div class="border rounded-lg w-[30%] px-2 flex flex-col gap-3 py-3">
-                <div class="flex justify-between w-full items-center">
-                    <h1 class="text-2xl font-bold">{{ $propertie->title }}</h1>
-                    <h1><i class="fa-solid fa-star text-yellow-400"></i> 3,5</h1>
-                    <p>{{ $propertie->member }}</p>
+        <div class="flex justify-between items-start bg-black">
+            <div class="w-[50%] flex flex-col gap-2 bg-red-400">
+                <div class="border rounded-lg w-full px-2 flex flex-col gap-3 py-3">
+                    <div class="flex justify-between w-full items-center bg-green-400">
+                        <h1 class="text-2xl font-bold">{{ $propertie->title }}</h1>
+                        <div class="flex gap-2 w-[30%]">
+                            <h1>{{ $rating }} <i class="fa-solid fa-star text-yellow-400"></i> ({{ $numReviews }} reviews)</h1>
+                        </div>
+                    </div>
+                    <p class="text-xl"><span>Description : </span> {{ $propertie->description }}</p>
+                    <p class="text-xl"><span>Adress : </span> {{ $propertie->location }}</p>
+                    <p class="text-xl"><span>max guest : </span> {{ $propertie->max_guest }}</p>
+                    <h1 class="text-xl"> Price per night : {{ $propertie->price_per_night }} </h1>
                 </div>
-                <p class="text-xl"><span>Description : </span> {{ $propertie->description }}</p>
-                <p class="text-xl"><span>Adress : </span> {{ $propertie->location }}</p>
-                <p class="text-xl"><span>max guest : </span> {{ $propertie->max_guest }}</p>
-                <h1 class="text-xl"> Price per night : {{ $propertie->price_per_night }} </h1>
+                <div class="border rounded-lg w-full px-2 flex flex-col gap-3 py-3">
+                    <h1>Review</h1>
+                    {{-- <h1 class="text-4xl font-bold">9/10</h1> --}}
+                    @foreach ($latestReviews as $review)
+                    <div class="border p-1 rounded-lg">
+                        <div class="flex gap-2 font-bold">
+                            <svg class="w-8 h-8 text-[#3788D8] -left-1 bg-gray-300 rounded-full p-2" fill="currentColor"
+                                viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                    clip-rule="evenodd">
+                                </path>
+                            </svg>
+                            <h5> {{ $review->user->name }}</h5>
+                        </div>
+                        <p class="pl-10">{{ $review->description }}</p>
+                    </div>
+                    @endforeach
+
+                    
+                    <div class="py-2">
+                        <form action="{{ route('review.store') }}" method="POST">
+                            @csrf
+                            <div class="rating mb-2">
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                <input type="hidden" name="propertie_id" value="{{ $propertie->id  }}">    
+                                <input type="radio" id="star-1" name="rating" value="5">
+                                <label for="star-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path pathLength="360"
+                                            d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z">
+                                        </path>
+                                    </svg>
+                                </label>
+                                <input type="radio" id="star-2" name="rating" value="4">
+                                <label for="star-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path pathLength="360"
+                                            d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z">
+                                        </path>
+                                    </svg>
+                                </label>
+                                <input type="radio" id="star-3" name="rating" value="3">
+                                <label for="star-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path pathLength="360"
+                                            d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z">
+                                        </path>
+                                    </svg>
+                                </label>
+                                <input type="radio" id="star-4" name="rating" value="2">
+                                <label for="star-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path pathLength="360"
+                                            d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z">
+                                        </path>
+                                    </svg>
+                                </label>
+                                <input type="radio" id="star-5" name="rating" value="1">
+                                <label for="star-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path pathLength="360"
+                                            d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.45,13.97L5.82,21L12,17.27Z">
+                                        </path>
+                                    </svg>
+                                </label>
+                            </div>
+                            <textarea name="description" id="" class="w-full p-5 rounded-md bg-gray-100"
+                                placeholder="Enter your Comment" rows="5"></textarea>
+                            <button class="bg-blue-800 text-white px-3 py-2 rounded-lg">Submit Review</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="w-[60%] p-5">
+            <div class="w-[50%] p-5">
                 <div id='calendar'></div>
             </div>
         </div>
+
+
+
     </div>
 @endsection

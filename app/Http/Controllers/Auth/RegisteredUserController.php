@@ -38,7 +38,6 @@ class RegisteredUserController extends Controller
             'phone' => ['required', 'min:10'],
             'role' => 'required',
         ]);
-
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -46,9 +45,9 @@ class RegisteredUserController extends Controller
             'phone' => $request->phone,
             'role' => $request->role,
         ]);
-
         event(new Registered($user));
-
+        
+        $user->assignRole($request->role);
         Auth::login($user);
 
         return redirect(route('home', absolute: false));
