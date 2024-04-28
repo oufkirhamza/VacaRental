@@ -20,23 +20,38 @@ class ContactMailer extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public $messageContent;
+    public function __construct($messageContent)
     {
         //
+        $this->messageContent = $messageContent;
     }
 
+    // @return $this;
+   
     /**
      * Get the message envelope.
      */
     public function envelope(): Envelope
     {
-        $contact = Contact::where('user_id', Auth::user()->id);
+        $user = Auth::user();
+        if ($user) {
+            $contact = Contact::where('user_id', $user->id)->latest()->first();
+            $subject = $contact ? $contact->subject : 'Default Subject';
+        } else {
+            $subject = 'Default Subject';
+        }
         
         return new Envelope(
-            subject: 'Contact Mail',
+            subject: $subject,
         );
     }
-
+    
+    public function build()
+    {
+        return $this->view('mail.contact_mail')
+                    ->with('messageContent', $this->messageContent);
+    }
     /**
      * Get the message content definition.
      */

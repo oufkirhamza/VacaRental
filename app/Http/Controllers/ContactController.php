@@ -6,6 +6,7 @@ use App\Mail\ContactMail;
 use App\Mail\ContactMailer;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Mail;
 
 class ContactController extends Controller
@@ -17,15 +18,15 @@ class ContactController extends Controller
     {
         return view('contact.contact');
     }
+    public function index_gmail(Request $request)
+    {
 
+        return view('mail.contact_mail', compact("message"));
+    }
+    
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
-
     /**
      * Store a newly created resource in storage.
      */
@@ -36,12 +37,13 @@ class ContactController extends Controller
             'subject' => 'required',
             'message' => 'required',
         ]);
-        Contact::create([
+        $mail = Contact::create([
             'user_id' => $request->user_id,
             'subject' => $request->subject,
             'message' => $request->message,
         ]);
-        Mail::to('oufkirhamza08@gmail.com')->send(new ContactMailer);
+        $messageContent = request()->message;
+        Mail::to('oufkirhamza08@gmail.com')->send(new ContactMailer($messageContent ));
         return back();
     }
 

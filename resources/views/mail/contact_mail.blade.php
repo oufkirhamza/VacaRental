@@ -7,6 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    test
+    {{-- @dd($message) --}}
+    <p>{{ $messageContent }}</p>
 </body>
 </html>
