@@ -24,6 +24,7 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth'])->group(function () {
     // contact
     Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
+    Route::post('/contact/create', [ContactController::class, 'store'])->name('contact.store');
 
     // review
     Route::post('/review/store', [ReviewController::class, 'store'])->name('review.store');

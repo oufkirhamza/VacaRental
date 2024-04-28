@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ContactMail;
+use App\Mail\ContactMailer;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use Mail;
 
 class ContactController extends Controller
 {
@@ -38,6 +41,7 @@ class ContactController extends Controller
             'subject' => $request->subject,
             'message' => $request->message,
         ]);
+        Mail::to('oufkirhamza08@gmail.com')->send(new ContactMailer);
         return back();
     }
 

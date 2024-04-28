@@ -21,7 +21,7 @@ class PropertieController extends Controller
     public function index_home()
     {   
         $properties = Propertie::all();
-        // dd(count($properties));
+        
         if ( count($properties) < 4) {
             $firstProperties = $properties;
         } else {

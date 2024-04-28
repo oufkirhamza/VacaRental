@@ -1,7 +1,7 @@
 @extends('layouts.index')
 @section('content')
-    <div class="flex flex-col items-center">
-        <div class="shadow-lg w-[35%] my-5 py-7 px-5">
+    <div class="flex flex-col items-center bg-gray-100">
+        <div class="shadow-lg w-[35%] my-5 py-7 px-5 bg-white ">
             <form class="flex flex-col gap-2 " enctype="multipart/form-data" action="{{ route('propertie.store') }}"
                 method="POST">
                 @csrf
@@ -39,13 +39,6 @@
             </form>
         </div>
 
-        {{-- @foreach ($properties as $propertie)
-            @php
-                $images = json_decode($propertie->image);
-            @endphp
-            @foreach ($images as $img)
-                <img src="{{ asset('storage/img/' . $img) }}" alt="">
-            @endforeach
-        @endforeach --}}
+
     </div>
 @endsection
