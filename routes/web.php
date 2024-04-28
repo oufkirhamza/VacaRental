@@ -23,7 +23,7 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth'])->group(function () {
     // contact
-    Route::get('/contact/now', [ContactController::class, 'index'])->name('contact.index');
+    Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
 
     // review
     Route::post('/review/store', [ReviewController::class, 'store'])->name('review.store');

@@ -19,8 +19,14 @@ class PropertieController extends Controller
         return view('propetie.createPropertie');
     }
     public function index_home()
-    {
-        $firstProperties = Propertie::first()->take(4)->get();
+    {   
+        $properties = Propertie::all();
+        // dd(count($properties));
+        if ( count($properties) < 4) {
+            $firstProperties = $properties;
+        } else {
+            $firstProperties = Propertie::first()->take(4)->get();
+        }
         $allrating = 0;
         $users = count(User::all());
         $reviews = Review::all();

@@ -10,6 +10,7 @@
     </div>
     <div class="py-16 flex flex-col gap-4 bg-gray-200">
         <div class="flex flex-wrap justify-center gap-4">
+            
             @foreach ($firstProperties as $propertie)
                 <div class="relative flex w-80 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
                     <div
