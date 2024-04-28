@@ -26,8 +26,8 @@
                 <div x-data="{ open: true }"
                     class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-8">
                     <div class="flex flex-row items-center justify-between p-4">
-                        <a href="#"
-                            ><img width="150" src="{{ asset('images/rental_logo_blue.png') }}" alt="logo"></a>
+                        <a href="#"><img width="150" src="{{ asset('images/rental_logo_blue.png') }}"
+                                alt="logo"></a>
                         <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline"
                             @click="open = !open">
                             <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
@@ -45,8 +45,14 @@
                         @if (Auth::user())
                             <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                                 href="/Home">Home</a>
-                            <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
-                                href="/propertie">Properties</a>
+                            @if (Auth::user()->hasRole('Owner'))
+                                <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                                    href="/propertie">Properties</a>
+                            @endif
+                            @if (Auth::user()->hasRole('Renter'))
+                                <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
+                                    href="/search">Properties</a>
+                            @endif
                             <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
                                 href="#">About</a>
                             <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"
@@ -73,37 +79,36 @@
     @yield('content')
 
 
-            <footer class="p-4 bg-white rounded-lg shadow md:px-6 md:py-8 dark:bg-gray-800">
-                <div class="sm:flex sm:items-center sm:justify-between">
-                    <a href="#" target="_blank" class="flex items-center mb-4 sm:mb-0">
-                        <img width="150" src="{{ asset('images/rental_logo_blue.png') }}" class="mr-4 h-8" alt="Logo" />
-                    </a>
-                    <ul class="flex flex-wrap items-center mb-6 sm:mb-0">
-                        <li>
-                            <a href="#"
-                                class="mr-4 text-sm text-gray-500 hover:underline md:mr-6 dark:text-gray-400">About</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="mr-4 text-sm text-gray-500 hover:underline md:mr-6 dark:text-gray-400">Privacy
-                                Policy</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="mr-4 text-sm text-gray-500 hover:underline md:mr-6 dark:text-gray-400">Licensing</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="text-sm text-gray-500 hover:underline dark:text-gray-400">Contact</a>
-                        </li>
-                    </ul>
-                </div>
-                <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-                <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a
-                        href="#" target="_blank" class="hover:underline">VacaRental™</a>. All Rights
-                    Reserved.
-                </span>
-            </footer>
+    <footer class="p-4 bg-white rounded-lg shadow md:px-6 md:py-8 dark:bg-gray-800">
+        <div class="sm:flex sm:items-center sm:justify-between">
+            <a href="#" target="_blank" class="flex items-center mb-4 sm:mb-0">
+                <img width="150" src="{{ asset('images/rental_logo_blue.png') }}" class="mr-4 h-8" alt="Logo" />
+            </a>
+            <ul class="flex flex-wrap items-center mb-6 sm:mb-0">
+                <li>
+                    <a href="#"
+                        class="mr-4 text-sm text-gray-500 hover:underline md:mr-6 dark:text-gray-400">About</a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="mr-4 text-sm text-gray-500 hover:underline md:mr-6 dark:text-gray-400">Privacy
+                        Policy</a>
+                </li>
+                <li>
+                    <a href="#"
+                        class="mr-4 text-sm text-gray-500 hover:underline md:mr-6 dark:text-gray-400">Licensing</a>
+                </li>
+                <li>
+                    <a href="#" class="text-sm text-gray-500 hover:underline dark:text-gray-400">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+        <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 <a href="#"
+                target="_blank" class="hover:underline">VacaRental™</a>. All Rights
+            Reserved.
+        </span>
+    </footer>
 
 </body>
 
