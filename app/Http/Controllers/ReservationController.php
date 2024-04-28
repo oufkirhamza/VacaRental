@@ -16,6 +16,7 @@ class ReservationController extends Controller
     public function index()
     {
         //
+        
     }
 
     public function create()
@@ -61,8 +62,8 @@ class ReservationController extends Controller
                     'price_data' => [
                         'currency' => 'usd',
                         'product_data' => [
-                            "name" => "LionsGeek Product",
-                            "description" => "vacation rental"
+                            "name" => "VacaRental",
+                            "description" => "Thank you"
                         ],
                         'unit_amount' => $amount,
                     ],

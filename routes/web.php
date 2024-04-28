@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DoubleAuthController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertieController;
@@ -21,6 +22,9 @@ Route::get('/dashboard', function () {
 
 
 Route::middleware(['auth'])->group(function () {
+    // contact
+    Route::get('/contact/now', [ContactController::class, 'index'])->name('contact.index');
+
     // review
     Route::post('/review/store', [ReviewController::class, 'store'])->name('review.store');
     // search

@@ -2,29 +2,15 @@
 @section('content')
     <div>
         <div class="hero_home">
-            <div class="bg-[#0a1f4696] w-full flex justify-center items-center h-[50vh]">
-                <form action="{{ route('search') }}" method="GET">
-                    <div class="flex w-[50%] mx-10 rounded bg-white">
-                        <input class=" w-full border-none bg-transparent px-4 py-1 outline-none focus:outline-none "
-                            type="search" name="search" placeholder="Search..." />
-                        <button type="submit" class="m-2 rounded bg-blue-600 px-4 py-2 text-white">
-                            <svg class="fill-current h-6 w-6" xmlns="http://www.w3.org/2000/svg"
-                                xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Capa_1" x="0px" y="0px"
-                                viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 56.966 56.966;"
-                                xml:space="preserve" width="512px" height="512px">
-                                <path
-                                    d="M55.146,51.887L41.588,37.786c3.486-4.144,5.396-9.358,5.396-14.786c0-12.682-10.318-23-23-23s-23,10.318-23,23  s10.318,23,23,23c4.761,0,9.298-1.436,13.177-4.162l13.661,14.208c0.571,0.593,1.339,0.92,2.162,0.92  c0.779,0,1.518-0.297,2.079-0.837C56.255,54.982,56.293,53.08,55.146,51.887z M23.984,6c9.374,0,17,7.626,17,17s-7.626,17-17,17  s-17-7.626-17-17S14.61,6,23.984,6z" />
-                            </svg>
-                        </button>
-                    </div>
-                </form>
+            <div class="bg-[#0a1f4696] relative w-full flex justify-center items-center h-[50vh]">
+                <img class="w-[150px] absolute right-0 bottom-0 " src="{{ asset('images/logo.png') }}" alt="">
+                <h1 class="text-4xl font-bold text-white ">Discover Your Ideal Vacation Retreat: Find, Rent, and Enjoy! </h1>
             </div>
-
         </div>
     </div>
     <div class="py-16 flex flex-col gap-4 bg-gray-200">
         <div class="flex flex-wrap justify-center gap-4">
-            @foreach ($properties as $propertie)
+            @foreach ($firstProperties as $propertie)
                 <div class="relative flex w-80 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
                     <div
                         class="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40 bg-gradient-to-r from-blue-500 to-blue-600">
@@ -66,7 +52,7 @@
         <div class="w-full flex justify-center">
             <button type="button"
                 class="select-none rounded-lg bg-[#002e45] py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-900/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-                <a href="">All properties</a>
+                <a href="/search">All properties</a>
             </button>
         </div>
     </div>
@@ -76,7 +62,7 @@
         <p class="text-xl text-white">Follow these 3 steps to book your place</p>
         <div class="flex gap-5 justify-center items-center">
             <div class="flex items-center my-4 gap-2 bg-white flex-col justify-center w-[25%] text-center rounded-lg p-4 ">
-                <div class="w-20 h-20 bg-blue-700 rounded-full flex justify-center items-center text-white text-2xl">
+                <div class="w-20 h-20 bg-[#6C60FE] rounded-full flex justify-center items-center text-white text-2xl">
                     <i class="fa-regular fa-map"></i>
                 </div>
                 <div class="ml-4">
@@ -85,7 +71,7 @@
                 </div>
             </div>
             <div class="flex items-center my-4 gap-2 bg-white flex-col justify-center w-[25%] text-center rounded-lg p-4 ">
-                <div class="w-20 h-20 bg-blue-700 rounded-full flex justify-center items-center text-white text-2xl">
+                <div class="w-20 h-20 bg-[#6C60FE] rounded-full flex justify-center items-center text-white text-2xl">
                     <i class="fa-regular fa-calendar"></i>
                 </div>
                 <div class="ml-4">
@@ -94,7 +80,7 @@
                 </div>
             </div>
             <div class="flex items-center my-4 gap-2 bg-white flex-col justify-center w-[25%] text-center rounded-lg p-4 ">
-                <div class="w-20 h-20 bg-blue-700 rounded-full flex justify-center items-center text-white text-2xl">
+                <div class="w-20 h-20 bg-[#6C60FE] rounded-full flex justify-center items-center text-white text-2xl">
                     <i class="fa-regular fa-handshake"></i>
                 </div>
                 <div class="ml-4">

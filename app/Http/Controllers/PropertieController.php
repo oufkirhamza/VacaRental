@@ -20,7 +20,7 @@ class PropertieController extends Controller
     }
     public function index_home()
     {
-        $latestReviews = Review::latest()->take(3)->get();
+        $firstProperties = Propertie::first()->take(4)->get();
         $allrating = 0;
         $users = count(User::all());
         $reviews = Review::all();
@@ -29,14 +29,11 @@ class PropertieController extends Controller
             $allrating += $review->rating;
         }
         if ($numReviews == 0) {
-
-
             $rating = $allrating / 1;
         } else {
-            
             $rating = $allrating / $numReviews;
         }
-        return view('home.home', compact('rating', 'numReviews'));
+        return view('home.home', compact('rating', 'numReviews', 'firstProperties'));
     }
 
     /**
@@ -63,15 +60,7 @@ class PropertieController extends Controller
             'max_guest' => 'required',
             'image.*' => 'required',
         ]);
-        // dd($request);
-        // $images = $request->file("image");
 
-        // foreach ($images as  $image) {
-        //     $imageName = time() . "_" . $image->getClientOriginalName();
-        //     $image->storeAs("public/img", $imageName);
-        //     $imagePaths[] = $imageName;
-        //     }
-        // dd($request);
         $images = $request->file("image");
         $property = Propertie::create([
             'user_id' => $request->user_id,

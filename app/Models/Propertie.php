@@ -28,12 +28,12 @@ class Propertie extends Model
     public function images() {
         return $this->hasMany(Image::class);
     }
+    public function reviews() {
+        return $this->hasMany(Review::class);
+    }
     public function searchableAs()
     {
         return 'properties_index'; 
-    }
-    public function reviews() {
-        return $this->hasMany(Review::class);
     }
 
     public function toSearchableArray()
