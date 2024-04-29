@@ -19,27 +19,34 @@ class PropertieController extends Controller
         return view('propetie.createPropertie');
     }
     public function index_home()
-    {   
+    {
         $properties = Propertie::all();
-        
-        if ( count($properties) < 4) {
+
+        if (count($properties) < 4) {
             $firstProperties = $properties;
         } else {
             $firstProperties = Propertie::first()->take(4)->get();
         }
-        $allrating = 0;
-        $users = count(User::all());
-        $reviews = Review::all();
-        $numReviews = count($reviews);
-        foreach ($reviews as $review) {
-            $allrating += $review->rating;
+
+
+        $ratings = [];
+        $numReviewsArray = [];
+        foreach ($properties as $propertie) {
+            $allrating = 0;
+            $reviews = Review::where('propertie_id', $propertie->id)->get();
+            $numReviews = count($reviews);
+            $numReviewsArray[$propertie->id] = $numReviews;
+            foreach ($reviews as $review) {
+                $allrating += $review->rating;
+            }
+            if ($numReviews == 0) {
+                $rating = $allrating / 1;
+            } else {
+                $rating = $allrating / $numReviews;
+            }
+            $ratings[$propertie->id] = $rating;
         }
-        if ($numReviews == 0) {
-            $rating = $allrating / 1;
-        } else {
-            $rating = $allrating / $numReviews;
-        }
-        return view('home.home', compact('rating', 'numReviews', 'firstProperties'));
+        return view('home.home', compact('ratings', 'numReviewsArray', 'firstProperties'));
     }
 
     /**
@@ -95,20 +102,18 @@ class PropertieController extends Controller
      */
     public function show(Propertie $propertie)
     {
-        $latestReviews = Review::latest()->take(3)->get();
+        // $latestReviews = Review::latest()->take(3)->get();
+        $latestReviews = Review::where('propertie_id', $propertie->id)->get();
         $allrating = 0;
         $users = count(User::all());
-        $reviews = Review::all();
+        $reviews = Review::where('propertie_id', $propertie->id)->get();
         $numReviews = count($reviews);
         foreach ($reviews as $review) {
             $allrating += $review->rating;
         }
         if ($numReviews == 0) {
-
-
             $rating = $allrating / 1;
         } else {
-            
             $rating = $allrating / $numReviews;
         }
 

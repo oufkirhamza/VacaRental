@@ -79,7 +79,7 @@
 
     @include('propetie.reservation_modal')
     <div class="p-10 flex flex-col gap-2 bg-gray-200">
-        <div id="default-carousel" class="relative w-full" data-carousel="slide">
+        {{-- <div id="default-carousel" class="relative w-full " data-carousel="slide">
             <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
                 @foreach ($propertie->images as $img)
                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
@@ -116,7 +116,66 @@
                     <span class="sr-only">Next</span>
                 </span>
             </button>
+        </div> --}}
+        {{--  --}}
+        <div class="container mx-auto px-5 py-2 lg:px-32 lg:pt-24">
+            <div class="-m-1 flex flex-wrap md:-m-2">
+                <div class="flex w-1/2 flex-wrap">
+                    <div class="w-1/2 p-1 md:p-2">
+                        <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center"
+                            src="{{ asset('storage/img/' . $propertie->images[0]->image) }}" />
+                    </div>
+                    <div class="w-1/2 p-1 md:p-2">
+                        @if (count($propertie->images) > 1)
+                            <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center"
+                                src="{{ asset('storage/img/' . $propertie->images[1]->image) }}" />
+                        @else
+                            <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center"
+                                src="{{ asset('storage/img/' . $propertie->images[0]->image) }}" />
+                        @endif
+                    </div>
+                    <div class="w-full p-1 md:p-2">
+                        @if (count($propertie->images) > 2)
+                            <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center"
+                                src="{{ asset('storage/img/' . $propertie->images[2]->image) }}" />
+                        @else
+                            <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center"
+                                src="{{ asset('storage/img/' . $propertie->images[0]->image) }}" />
+                        @endif
+                    </div>
+                </div>
+                <div class="flex w-1/2 flex-wrap">
+                    <div class="w-full p-1 md:p-2">
+                        @if (count($propertie->images) > 3)
+                            <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center"
+                                src="{{ asset('storage/img/' . $propertie->images[3]->image) }}" />
+                        @else
+                            <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center"
+                                src="{{ asset('storage/img/' . $propertie->images[0]->image) }}" />
+                        @endif
+                    </div>
+                    <div class="w-1/2 p-1 md:p-2">
+                        @if (count($propertie->images) > 4)
+                            <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center"
+                                src="{{ asset('storage/img/' . $propertie->images[4]->image) }}" />
+                        @else
+                            <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center"
+                                src="{{ asset('storage/img/' . $propertie->images[0]->image) }}" />
+                        @endif
+                    </div>
+                    <div class="w-1/2 p-1 md:p-2">
+                        @if (count($propertie->images) > 5)
+                            <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center"
+                                src="{{ asset('storage/img/' . $propertie->images[5]->image) }}" />
+                        @else
+                            <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center"
+                                src="{{ asset('storage/img/' . $propertie->images[0]->image) }}" />
+                        @endif
+                    </div>
+                </div>
+            </div>
         </div>
+        {{--  --}}
         <div class="flex justify-between items-start gap-2 ">
             <div class="w-[50%] flex flex-col gap-2 ">
                 <div class="border rounded-lg w-full px-2 flex flex-col gap-3 py-3 bg-white">
@@ -171,8 +230,8 @@
                                 <input value="1" name="rating" id="star1" type="radio">
                                 <label title="text" for="star1"></label>
                             </div>
-                            <textarea name="description" id="" class="w-full p-5 rounded-md bg-gray-50" placeholder="Enter your Comment"
-                                rows="5"></textarea>
+                            <textarea name="description" id="" class="w-full p-5 rounded-md bg-gray-50"
+                                placeholder="Enter your Comment" rows="5"></textarea>
                             <button class="bg-blue-800 text-white px-3 py-2 rounded-lg">Submit Review</button>
                         </form>
                     </div>

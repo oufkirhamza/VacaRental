@@ -44,16 +44,14 @@
                 </form>
 
             </div>
-            <div class="flex w-[70%] flex-wrap py-16 justify-start ml-10  gap-4">
+            <div class="flex w-[70%] h-fit flex-wrap py-16 justify-start ml-10  gap-4">
                 @if (count($properties) > 0)
                     @foreach ($properties as $propertie)
                         <div
                             class="relative flex w-[28%] mb-10 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
                             <div
-                                class="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40 bg-gradient-to-r from-blue-500 to-blue-600">
-                                @foreach ($propertie->images as $image)
-                                    <img src="{{ asset('storage/img/' . $image->image) }}" alt="">
-                                @endforeach
+                                class="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl  bg-clip-border text-white shadow-lg shadow-blue-gray-500/40 bg-gradient-to-r from-blue-500 to-blue-600">
+                                    <img src="{{ asset('storage/img/' . $propertie->images[0]->image ) }}"  alt="">
                             </div>
                             <div class="p-6 font-medium">
                                 <div class="flex justify-between">
@@ -61,8 +59,8 @@
                                         class="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
                                         {{ $propertie->title }}
                                     </h5>
-                                    <h5><i class="fa-solid fa-star text-yellow-300"></i> {{ $rating }} (
-                                        {{ $numReviews }} reviews) </h5>
+                                    <h5><i class="fa-solid fa-star text-yellow-300"></i> {{ $ratings[$propertie->id] }} (
+                                        {{ $numReviewsArray[$propertie->id] }} reviews) </h5>
                                 </div>
                                 <p class="block font-sans text-base font-light leading-relaxed text-inherit antialiased">
                                     <i class="fa-solid fa-location-dot"></i>

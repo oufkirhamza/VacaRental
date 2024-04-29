@@ -1,7 +1,12 @@
 @extends('layouts.index')
 @section('content')
-    <div class="w-full h-screen">
-        <div class="flex items-center bg-gray-200 justify-center p-12">
+    <div class="hero_contact">
+        <div class="bg-[#00000050] w-full flex justify-center items-center h-[50vh]">
+            <h1 class="text-4xl font-bold text-white">Contact Us</h1>
+        </div>
+    </div>
+    <div class="w-full bg-gray-200 h-screen">
+        <div class="flex items-center  justify-center p-12">
             <div class="mx-auto w-full max-w-[550px] bg-white p-4 rounded-lg">
                 <form action="{{ route('contact.store') }}" method="post">
                     @csrf
@@ -22,7 +27,7 @@
                     </div>
                     <div>
                         <button
-                            class="hover:shadow-form rounded-md bg-[#6A64F1] py-3 px-8 text-base font-semibold text-white outline-none">
+                            class="hover:shadow-form rounded-md bg-[#002e45] py-3 px-8 text-base font-semibold text-white outline-none">
                             Submit
                         </button>
                     </div>

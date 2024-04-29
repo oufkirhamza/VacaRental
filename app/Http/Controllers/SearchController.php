@@ -17,24 +17,28 @@ class SearchController extends Controller
     //     dd($searchTerm);
     //     $results = Propertie::search($searchTerm)->get(); // Retrieve matching models
     //     dd($results);
-    //     // Optional: Filter and format results further
 
     //     return view('search.search', compact('results')); // Pass results to view
     // }
     public function search(Request $request)
     {
-        $latestReviews = Review::latest()->take(3)->get();
-        $allrating = 0;
-        $users = count(User::all());
-        $reviews = Review::all();
-        $numReviews = count($reviews);
-        foreach ($reviews as $review) {
-            $allrating += $review->rating;
-        }
-        if ($numReviews == 0) {
-            $rating = $allrating / 1;
-        } else {
-            $rating = $allrating / $numReviews;
+        $properties = Propertie::all();
+        $ratings = [];
+        $numReviewsArray = [];
+        foreach ($properties as $propertie) {
+            $allrating = 0;
+            $reviews = Review::where('propertie_id', $propertie->id)->get();
+            $numReviews = count($reviews);
+            $numReviewsArray[$propertie->id] = $numReviews;
+            foreach ($reviews as $review) {
+                $allrating += $review->rating;
+            }
+            if ($numReviews == 0) {
+                $rating = $allrating / 1;
+            } else {
+                $rating = $allrating / $numReviews;
+            }
+            $ratings[$propertie->id] = $rating;
         }
 
         $propertiesQuery = Propertie::query();
@@ -48,6 +52,6 @@ class SearchController extends Controller
         }
 
         $properties = $propertiesQuery->get();
-        return view('search.search', compact('properties','rating', 'numReviews'));
+        return view('search.search', compact('properties','ratings', 'numReviewsArray'));
     }
 }

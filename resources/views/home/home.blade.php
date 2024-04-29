@@ -25,7 +25,7 @@
                                 class="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
                                 {{ $propertie->title }}
                             </h5>
-                            <h5><i class="fa-solid fa-star text-yellow-300"></i> {{ $rating }} ( {{ $numReviews }}
+                            <h5><i class="fa-solid fa-star text-yellow-300"></i> {{ $ratings[$propertie->id] }} ( {{ $numReviewsArray[$propertie->id] }}
                                 reviews) </h5>
                         </div>
                         <p class="block font-sans text-base font-light leading-relaxed text-inherit antialiased">
