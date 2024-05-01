@@ -4,15 +4,15 @@
         <div class="hero_home">
             <div class="bg-[#0a1f4696] relative w-full flex justify-center items-center h-[50vh]">
                 <img class="w-[150px] absolute right-0 bottom-0 " src="{{ asset('images/logo.png') }}" alt="">
-                <h1 class="text-4xl font-bold text-white ">Discover Your Ideal Vacation Retreat: Find, Rent, and Enjoy! </h1>
+                <h1 class="sm:text-4xl font-bold text-2xl sm:w-[100%] w-[60%] text-center text-white ">Discover Your Ideal Vacation Retreat: Find, Rent, and Enjoy! </h1>
             </div>
         </div>
     </div>
     <div class="py-16 flex flex-col gap-4 bg-gray-200">
-        <div class="flex flex-wrap justify-center gap-4">
+        <div class="flex flex-wrap justify-center sm:gap-4 gap-10">
             
             @foreach ($firstProperties as $propertie)
-                <div class="relative flex w-80 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+                <div class="relative flex w-80 flex-col  rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
                     <div
                         class="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40 bg-gradient-to-r from-blue-500 to-blue-600">
                         @foreach ($propertie->images as $image)
@@ -61,8 +61,8 @@
     <div class="bg-[#002e45] w-full flex flex-col justify-center items-center py-16">
         <h1 class="text-2xl text-white font-bold">How It Works</h1>
         <p class="text-xl text-white">Follow these 3 steps to book your place</p>
-        <div class="flex gap-5 justify-center items-center">
-            <div class="flex items-center my-4 gap-2 bg-white flex-col justify-center w-[25%] text-center rounded-lg p-4 ">
+        <div class="flex gap-5 sm:flex-row flex-col justify-center items-center">
+            <div class="flex items-center my-4  gap-2 bg-white flex-col justify-center sm:w-[25%] w-[80%] text-center rounded-lg p-4 ">
                 <div class="w-20 h-20 bg-[#6C60FE] rounded-full flex justify-center items-center text-white text-2xl">
                     <i class="fa-regular fa-map"></i>
                 </div>
@@ -71,7 +71,7 @@
                     <p>Explore various locations and find the perfect place for your stay.</p>
                 </div>
             </div>
-            <div class="flex items-center my-4 gap-2 bg-white flex-col justify-center w-[25%] text-center rounded-lg p-4 ">
+            <div class="flex items-center my-4 gap-2 bg-white flex-col justify-center sm:w-[25%] w-[80%] text-center rounded-lg p-4 ">
                 <div class="w-20 h-20 bg-[#6C60FE] rounded-full flex justify-center items-center text-white text-2xl">
                     <i class="fa-regular fa-calendar"></i>
                 </div>
@@ -80,7 +80,7 @@
                     <p>Choose your desired check-in and check-out dates.</p>
                 </div>
             </div>
-            <div class="flex items-center my-4 gap-2 bg-white flex-col justify-center w-[25%] text-center rounded-lg p-4 ">
+            <div class="flex items-center my-4 gap-2 bg-white flex-col justify-center sm:w-[25%] w-[80%] text-center rounded-lg p-4 ">
                 <div class="w-20 h-20 bg-[#6C60FE] rounded-full flex justify-center items-center text-white text-2xl">
                     <i class="fa-regular fa-handshake"></i>
                 </div>
@@ -92,11 +92,11 @@
         </div>
     </div>
     <div class="bg-white flex flex-col justify-center gap-6 items-center w-full py-16">
-        <div class="w-[30%] text-[#002e45] text-center px-3">
+        <div class="sm:w-[30%] text-[#002e45] text-center px-3">
             <h1 class="text-3xl font-bold mb-2">Hundreds of Partners Around the World</h1>
             <p>Every day, we build trust through communication, transparency, and results.</p>
         </div>
-        <div class="w-full flex justify-center items-center mr-5 gap-5">
+        <div class="w-full flex sm:flex-row flex-col justify-center items-center mr-5 gap-5">
             <div class="bg-gray-200 rounded-lg p-2">
                 <img src="{{ asset('images/partner-icon-2.svg') }}" alt="">
             </div>
@@ -115,24 +115,24 @@
         </div>
 
     </div>
-    <div class="bg-[#002e45] flex w-full py-16">
-        <div class="w-[40%] text-white px-3">
+    <div class="bg-[#002e45] flex sm:flex-row flex-col w-full py-16">
+        <div class="sm:w-[40%] text-white px-3">
             <h1 class="text-3xl mb-2">Explore Property Type</h1>
             <p>Discover a diverse range of rental properties for your next stay. Browse through houses, apartments, and
                 villas available for rent. Find your ideal accommodation among listings created by property owners.</p>
         </div>
-        <div class="w-[60%] flex justify-center mr-5 gap-5">
-            <div class="bg-white w-[20%] rounded-lg min-h-[27vh] flex flex-col justify-center items-center gap-5 ">
+        <div class="sm:w-[60%] flex sm:flex-row flex-col items-center justify-center mr-5 gap-5">
+            <div class="bg-white sm:w-[20%] w-[80%] rounded-lg min-h-[27vh] flex flex-col justify-center items-center gap-5 ">
                 <img src="{{ asset('images/property-icon-1.svg') }}" alt="">
                 <h1 class="text-xl font-bold">Houses</h1>
                 <p>30 properties</p>
             </div>
-            <div class="bg-white w-[20%] rounded-lg min-h-[27vh] flex flex-col justify-center items-center gap-5 ">
+            <div class="bg-white sm:w-[20%] w-[80%] rounded-lg min-h-[27vh] flex flex-col justify-center items-center gap-5 ">
                 <img src="{{ asset('images/property-icon-4.svg') }}" alt="">
                 <h1 class="text-xl font-bold">Houses</h1>
                 <p>30 properties</p>
             </div>
-            <div class="bg-white w-[20%] rounded-lg min-h-[27vh] flex flex-col justify-center items-center gap-5 ">
+            <div class="bg-white sm:w-[20%] w-[80%] rounded-lg min-h-[27vh] flex flex-col justify-center items-center gap-5 ">
                 <img src="{{ asset('images/property-icon-3.svg') }}" alt="">
                 <h1 class="text-xl font-bold">Houses</h1>
                 <p>30 properties</p>

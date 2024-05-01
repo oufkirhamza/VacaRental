@@ -43,10 +43,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/propertie', [PropertieController::class, 'index'])->name('propertie.index')->middleware("role:Owner");
     Route::get('/propertie/{propertie}',[PropertieController::class, 'show'])->name('propertie.show'); 
     Route::post('/propertie/create', [PropertieController::class, 'store'])->name('propertie.store');
-    Route::get('/myproperties', [PropertieController::class, 'index_listProperties'])->name('myproperties.index');
-    Route::delete('/propertie/delete/{propertie}', [PropertieController::class, 'destroy'])->name('propertie.destroy');
+    Route::get('/myproperties', [PropertieController::class, 'index_listProperties'])->name('myproperties.index')->middleware("role:Owner");
+    Route::delete('/propertie/delete/{propertie}', [PropertieController::class, 'destroy'])->name('propertie.destroy')->middleware("role:Owner");
     // 2fa
-    Route::put("/doubleAuth/enable" , [DoubleAuthController::class , "authSwitcher"])->name('doubleAuth.switch');
+    // Route::put("/doubleAuth/enable" , [DoubleAuthController::class , "authSwitcher"])->name('doubleAuth.switch');
     // profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

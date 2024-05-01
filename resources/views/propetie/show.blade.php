@@ -5,7 +5,7 @@
             const propertyId = {{ $propertie->id }};
             // console.log(propertyId);
             const response = await axios.get(`/reservation/show/${propertyId}`);
-            console.log(response);
+            // console.log(response);
             const events = response.data.events;
             // console.log(events);
 
@@ -77,49 +77,18 @@
         });
     </script>
 
-    @include('propetie.reservation_modal')
-    <div class="p-10 flex flex-col gap-2 bg-gray-200">
-        {{-- <div id="default-carousel" class="relative w-full " data-carousel="slide">
-            <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-                @foreach ($propertie->images as $img)
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="{{ asset('storage/img/' . $img->image) }}"
-                            class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-                    </div>
-                @endforeach
-
-            </div>
-            <!-- Slider controls -->
-            <button type="button"
-                class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                data-carousel-prev>
-                <span
-                    class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                    <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M5 1 1 5l4 4" />
-                    </svg>
-                    <span class="sr-only">Previous</span>
-                </span>
-            </button>
-            <button type="button"
-                class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-                data-carousel-next>
-                <span
-                    class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                    <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m1 9 4-4-4-4" />
-                    </svg>
-                    <span class="sr-only">Next</span>
-                </span>
-            </button>
-        </div> --}}
+    <div class="sm:p-10 flex sm:w-[100%] py-5 items-center justify-center flex-col gap-2 bg-gray-200">
         {{--  --}}
-        <div class="container mx-auto px-5 py-2 lg:px-32 lg:pt-24">
-            <div class="-m-1 flex flex-wrap md:-m-2">
+        <div class="container mx-auto sm:px-5 py-2 lg:px-32 lg:pt-24">
+            {{-- phone --}}
+            <div class="sm:hidden grid grid-cols-1 md:grid-cols-2 gap-2">
+                @foreach ($propertie->images as $image)
+                    <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center"
+                        src="{{ asset('storage/img/' . $image->image) }}" />
+                @endforeach
+            </div>
+            {{-- desktop --}}
+            <div class="hidden -m-1 sm:flex flex-wrap md:-m-2">
                 <div class="flex w-1/2 flex-wrap">
                     <div class="w-1/2 p-1 md:p-2">
                         <img alt="gallery" class="block h-full w-full rounded-lg object-cover object-center"
@@ -176,8 +145,18 @@
             </div>
         </div>
         {{--  --}}
-        <div class="flex justify-between items-start gap-2 ">
-            <div class="w-[50%] flex flex-col gap-2 ">
+        <div class="flex sm:flex-row flex-col w-full justify-between sm:items-start gap-2 px-2">
+            <div class="sm:w-[50%] flex flex-col gap-2 ">
+                <div class="border rounded-lg w-full px-2 flex flex-col gap-3 py-3 bg-white">
+                    <h1 class="text-2xl font-bold">Owner </h1>
+                    <div class="flex justify-between items-center">
+                        <p class="text-xl"> <i class="fa-solid fa-user mr-2"></i>{{ $propertie->user->name }}</p>
+                        <button
+                            class="select-none rounded-lg bg-[#002e45] py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-900/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                            <a href="/chatify/{{ $propertie->user->id }}">Contact</a>
+                        </button>
+                    </div>
+                </div>
                 <div class="border rounded-lg w-full px-2 flex flex-col gap-3 py-3 bg-white">
                     <div class="flex justify-between  w-full items-center ">
                         <h1 class="text-2xl font-bold">{{ $propertie->title }}</h1>
@@ -186,9 +165,12 @@
                                 reviews)</h1>
                         </div>
                     </div>
-                    <p class="text-xl"><span>Adress : </span> {{ $propertie->location }}</p>
-                    <p class="text-xl"><span>max guest : </span> {{ $propertie->max_guest }}</p>
-                    <h1 class="text-xl"> Price per night : {{ $propertie->price_per_night }} </h1>
+                    <p class="text-xl"><i class="fa-solid fa-location-dot mr-2"></i><span>Adress : </span>
+                        {{ $propertie->location }}</p>
+                    <p class="text-xl"> <i class="fa-solid fa-users mr-2"></i><span>Max guest : </span>
+                        {{ $propertie->max_guest }}</p>
+                    <h1 class="text-xl"> <i class="fa-solid fa-money-bill mr-2"></i>Price per night :
+                        {{ $propertie->price_per_night }} </h1>
                 </div>
                 <div class="border rounded-lg w-full px-2 flex flex-col gap-3 py-3 bg-white">
                     <h1 class="text-2xl font-bold">Description : </h1>
@@ -211,8 +193,6 @@
                             <p class="pl-12">{{ $review->description }}</p>
                         </div>
                     @endforeach
-
-
                     <div class="py-2">
                         <form action="{{ route('review.store') }}" method="POST">
                             @csrf
@@ -232,14 +212,17 @@
                             </div>
                             <textarea name="description" id="" class="w-full p-5 rounded-md bg-gray-50"
                                 placeholder="Enter your Comment" rows="5"></textarea>
-                            <button class="bg-blue-800 text-white px-3 py-2 rounded-lg">Submit Review</button>
+                            <button
+                                class="select-none rounded-lg bg-[#002e45] py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-900/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">Submit
+                                Review</button>
                         </form>
                     </div>
                 </div>
             </div>
-            <div class="w-[50%] bg-white rounded-lg p-5">
-                <div id='calendar'></div>
+            <div class="sm:w-[50%]  bg-white rounded-lg p-5">
+                <div id='calendar' class="h-[75vh]"></div>
             </div>
+            @include('propetie.reservation_modal')
         </div>
 
 

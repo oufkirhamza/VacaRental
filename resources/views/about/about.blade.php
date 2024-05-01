@@ -2,11 +2,11 @@
 @section('content')
     <div class="hero_about">
         <div class="bg-[#00000050] w-full flex justify-center items-center h-[50vh]">
-            <h1 class="text-4xl font-bold text-white">About Us</h1>
+            <h1 class="sm:text-4xl text-6xl font-bold text-white">About Us</h1>
         </div>
     </div>
     <div class="w-full bg-gray-200 flex justify-center py-10 ">
-        <div class="w-[50%] flex flex-col gap-2">
+        <div class="w-[90%] sm:w-[50%] flex flex-col gap-2">
             <p>
                 Welcome to VacaRental, your ultimate destination for finding the perfect vacation rental experience.
                 Whether you're seeking a cozy cabin in the woods, a luxurious beachfront villa, or a charming urban

@@ -78,8 +78,8 @@
     <div>
         <div class="hero ">
             <div class="bg-[#00000050] w-full h-screen flex flex-col items-center justify-center">
-                <h1 class="text-8xl font-bold mt-[30px] text-white">Welcome to VacaRental</h1>
-                <h1 class="text-4xl font-bold mt-[50px] text-white"> Unlock Exclusive Access: Join Us Today and Discover
+                <h1 class="text-2xl font-bold mt-[30px] text-white sm:text-8xl">Welcome to VacaRental</h1>
+                <h1 class="sm:text-4xl sm:w-[100%] w-[60%] text-center font-bold mt-[50px] text-white"> Unlock Exclusive Access: Join Us Today and Discover
                     Your Perfect Getaway!</h1>
                 <button type="button"
                     class="select-none rounded-lg bg-[#002e45] py-3 mt-10 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-900/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
