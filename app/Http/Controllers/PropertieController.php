@@ -7,6 +7,7 @@ use App\Models\Image;
 use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 class PropertieController extends Controller
@@ -27,8 +28,6 @@ class PropertieController extends Controller
         } else {
             $firstProperties = Propertie::first()->take(4)->get();
         }
-
-
         $ratings = [];
         $numReviewsArray = [];
         foreach ($properties as $propertie) {
@@ -52,9 +51,34 @@ class PropertieController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function index_listProperties()
     {
-        //
+        $properties = Propertie::all();
+
+        if (count($properties) < 4) {
+            $firstProperties = $properties;
+        } else {
+            $firstProperties = Propertie::first()->take(4)->get();
+        }
+        $ratings = [];
+        $numReviewsArray = [];
+        foreach ($properties as $propertie) {
+            $allrating = 0;
+            $reviews = Review::where('propertie_id', $propertie->id)->get();
+            $numReviews = count($reviews);
+            $numReviewsArray[$propertie->id] = $numReviews;
+            foreach ($reviews as $review) {
+                $allrating += $review->rating;
+            }
+            if ($numReviews == 0) {
+                $rating = $allrating / 1;
+            } else {
+                $rating = $allrating / $numReviews;
+            }
+            $ratings[$propertie->id] = $rating;
+        }
+        $properties = Propertie::where('user_id', Auth::user()->id)->get();
+        return view('propetie.listProperties', compact('properties','ratings', 'numReviewsArray'));
     }
 
     /**
@@ -141,6 +165,8 @@ class PropertieController extends Controller
      */
     public function destroy(Propertie $propertie)
     {
-        //
+        // dd($propertie);
+        $propertie->delete();
+        return back();
     }
 }

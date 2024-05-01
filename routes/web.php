@@ -26,12 +26,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/contact', [ContactController::class, 'index'])->name('contact.index');
     Route::post('/contact/create', [ContactController::class, 'store'])->name('contact.store');
 
+    // about
+    Route::get('/about', [ContactController::class, 'index_about'])->name('index.about');
+
     // review
     Route::post('/review/store', [ReviewController::class, 'store'])->name('review.store');
     // search
     Route::get('/search', [SearchController::class, 'search'])->name('search');
     // stripe
-    // Route::get('/session', [StripeController::class, 'session']);
     Route::get('/success', [StripeController::class, 'success'])->name("success");
     // reservation
     Route::post('/reservation/create/{propertie}', [ReservationController::class, 'store'])->name('reservation.store');
@@ -41,6 +43,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/propertie', [PropertieController::class, 'index'])->name('propertie.index')->middleware("role:Owner");
     Route::get('/propertie/{propertie}',[PropertieController::class, 'show'])->name('propertie.show'); 
     Route::post('/propertie/create', [PropertieController::class, 'store'])->name('propertie.store');
+    Route::get('/myproperties', [PropertieController::class, 'index_listProperties'])->name('myproperties.index');
+    Route::delete('/propertie/delete/{propertie}', [PropertieController::class, 'destroy'])->name('propertie.destroy');
     // 2fa
     Route::put("/doubleAuth/enable" , [DoubleAuthController::class , "authSwitcher"])->name('doubleAuth.switch');
     // profile

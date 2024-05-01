@@ -50,9 +50,14 @@ class ContactController extends Controller
     /**
      * Display the specified resource.
      */
+    public function index_about() {
+        
+        return view('about.about');
+    }
+
     public function show(Contact $contact)
     {
-        //
+        
     }
 
     /**
