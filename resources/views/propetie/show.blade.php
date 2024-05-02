@@ -146,11 +146,12 @@
         </div>
         {{--  --}}
         <div class="flex sm:flex-row flex-col w-full justify-between sm:items-start gap-2 px-2">
-            <div class="sm:w-[50%] flex flex-col gap-2 ">
-                <div class="border rounded-lg w-full px-2 flex flex-col gap-3 py-3 bg-white">
-                    <h1 class="text-2xl font-bold">Owner </h1>
+            <div class="sm:w-[50%] flex flex-col gap-2">
+                <div
+                    class=" {{ $propertie->user->name == Auth::user()->name ? 'hidden' : '' }} border rounded-lg w-full px-2 flex flex-col gap-3 py-3 bg-white">
+                    <h1 class="text-2xl font-bold">Owner</h1>
                     <div class="flex justify-between items-center">
-                        <p class="text-xl"> <i class="fa-solid fa-user mr-2"></i>{{ $propertie->user->name }}</p>
+                        <p class="text-xl"><i class="fa-solid fa-user mr-2"></i>{{ $propertie->user->name }}</p>
                         <button
                             class="select-none rounded-lg bg-[#002e45] py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-900/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
                             <a href="/chatify/{{ $propertie->user->id }}">Contact</a>
@@ -193,12 +194,12 @@
                             <p class="pl-12">{{ $review->description }}</p>
                         </div>
                     @endforeach
-                    <div class="py-2">
+                    <div class="py-2 {{ $propertie->user->name == Auth::user()->name? 'hidden' : '' }}">
                         <form action="{{ route('review.store') }}" method="POST">
                             @csrf
-                            <div class="rating mb-2">
-                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                <input type="hidden" name="propertie_id" value="{{ $propertie->id }}">
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                            <input type="hidden" name="propertie_id" value="{{ $propertie->id }}">
+                            <div class="rating mb-2 ">
                                 <input value="5" name="rating" id="star5" type="radio">
                                 <label title="text" for="star5"></label>
                                 <input value="4" name="rating" id="star4" type="radio">

@@ -33,7 +33,7 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'phone' => ['required', 'min:10'],
             'role' => 'required',
@@ -46,10 +46,13 @@ class RegisteredUserController extends Controller
             'role' => $request->role,
         ]);
         event(new Registered($user));
-        
+
         $user->assignRole($request->role);
         Auth::login($user);
-
+        if ($request->role == 'Owner') {
+            return redirect(route('myproperties.index', absolute: false));
+        }
         return redirect(route('home', absolute: false));
+
     }
 }

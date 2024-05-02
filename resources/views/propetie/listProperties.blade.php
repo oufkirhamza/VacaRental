@@ -1,6 +1,9 @@
 @extends('layouts.index')
 @section('content')
     <div class="flex py-12 flex-wrap bg-gray-200 justify-center min-h-[50vh] gap-10 sm:gap-4">
+        @if ($properties->count() == 0)
+            <h1 class="text-xl">Create you Propertie card</h1>
+        @endif
         @foreach ($properties as $propertie)
             <div class="relative flex w-80  flex-col rounded-xl h-fit bg-white bg-clip-border text-gray-700 shadow-md">
                 <div

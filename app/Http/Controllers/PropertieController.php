@@ -118,7 +118,7 @@ class PropertieController extends Controller
                 "image" => $imageName
             ]);
         }
-        return back();
+        return redirect()->route('myproperties.index');
     }
 
     /**
