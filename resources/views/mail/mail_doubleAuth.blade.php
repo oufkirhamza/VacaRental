@@ -9,7 +9,7 @@
 <body>
     
     <h1>this your confirmation code</h1>
-    <div class="bg-green-400 p-10 border-2 border-dashed">{{ $code }}</div>
+    <div>{{ $code }}</div>
 
 </body>
 </html>

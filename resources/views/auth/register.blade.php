@@ -17,7 +17,7 @@
         </div>
         
         {{-- role --}}
-        <div class="mt-4 ">
+        <div class="mt-4">
             <x-input-label for="role" :value="__('Role')" />
             <select class="w-full rounded-lg border-[#c8c8c8] mt-1" name="role" id="">
                 <option selected disabled value="">Owner or Renter</option>

@@ -44,4 +44,8 @@
             </x-primary-button>
         </div>
     </form>
+    <div class="w-full flex justify-center pt-5 text-sm">
+        <p>You don't have an account ? </p>
+        <a href="/register" class="text-[#1F2937] underline font-bold ml-2"> Sign Up now</a>
+    </div>
 </x-guest-layout>

@@ -44,10 +44,12 @@
                             Delete
                         </button>
                     </form>
-                    <button data-ripple-light="true" type="button"
-                        class="select-none rounded-lg bg-[#002e45] py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-900/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-                        <a href="{{ route('propertie.show', $propertie) }}">Details</a>
-                    </button>
+                    <a href="{{ route('propertie.show', $propertie) }}">
+                        <button data-ripple-light="true" type="button"
+                            class="select-none rounded-lg bg-[#002e45] py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-900/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                            Details
+                        </button>
+                    </a>
                 </div>
             </div>
         @endforeach

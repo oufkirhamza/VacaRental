@@ -50,6 +50,10 @@ class SearchController extends Controller
         if (!empty($city)) {
             $propertiesQuery->where('city', 'like', "%{$city}%");
         }
+        // $reset = ($request->input('reset'));
+        // if (empty()) {
+        //     $propertiesQuery->where('city', 'like', "%{$city}%");
+        // }
 
         $properties = $propertiesQuery->get();
         return view('search.search', compact('properties','ratings', 'numReviewsArray'));

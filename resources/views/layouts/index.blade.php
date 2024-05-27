@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -83,11 +83,11 @@
                                     <i class="fa-solid fa-right-from-bracket"></i>
                                 </button>
                             </form>
+                            <a href="/profile">
                             <button class="px-4 py-2 mt-1 w-fit text-sm font-semibold">
-                                <a href="/profile">
                                     <i class="fa-solid fa-user"></i>
-                                </a>
-                            </button>
+                                </button>
+                            </a>
                         @endif
                         @if (!Auth::user())
                             <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent  rounded-lg dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline"

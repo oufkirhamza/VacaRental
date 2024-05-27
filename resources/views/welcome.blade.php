@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Laravel</title>
+    <title>VacaRental</title>
 
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <!-- Fonts -->
@@ -84,10 +84,10 @@
                 <button type="button"
                     class="select-none rounded-lg bg-[#002e45] py-3 mt-10 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-900/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
                     @if (!Auth::user())
-                        <a href="/register">Book now</a>
+                        <a class="w-full" href="/register">Book now</a>
                     @endif
                     @if (Auth::user())
-                        <a href="/Home">Book now</a>
+                        <a class="w-full" href="/Home">Book now</a>
                     @endif
                 </button>
             </div>

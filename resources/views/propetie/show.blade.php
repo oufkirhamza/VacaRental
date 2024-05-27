@@ -145,20 +145,22 @@
             </div>
         </div>
         {{--  --}}
-        <div class="flex sm:flex-row flex-col w-full justify-between sm:items-start gap-2 px-2">
-            <div class="sm:w-[50%] flex flex-col gap-2">
+        <div class="flex sm:flex-row flex-col w-full justify-between sm:items-start mt-5   gap-2 px-2">
+            <div class="sm:w-[50%] flex flex-col gap-2 border-r-2 bg-white px-4 rounded-sm">
                 <div
-                    class=" {{ $propertie->user->name == Auth::user()->name ? 'hidden' : '' }} border rounded-lg w-full px-2 flex flex-col gap-3 py-3 bg-white">
+                    class=" {{ $propertie->user->name == Auth::user()->name ? 'hidden' : '' }}   w-full px-2 flex flex-col gap-3 py-3 border-b-2 border-gray-200 pb-10">
                     <h1 class="text-2xl font-bold">Owner</h1>
                     <div class="flex justify-between items-center">
                         <p class="text-xl"><i class="fa-solid fa-user mr-2"></i>{{ $propertie->user->name }}</p>
-                        <button
-                            class="select-none rounded-lg bg-[#002e45] py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-900/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-                            <a href="/chatify/{{ $propertie->user->id }}">Contact</a>
-                        </button>
+                        <a href="/chatify/{{ $propertie->user->id }}">
+                            <button
+                                class="select-none  bg-[#002e45] py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-900/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                                Contact
+                            </button>
+                        </a>
                     </div>
                 </div>
-                <div class="border rounded-lg w-full px-2 flex flex-col gap-3 py-3 bg-white">
+                <div class="  w-full px-2 flex flex-col gap-3 py-3 border-b-2 border-gray-200 pb-10">
                     <div class="flex justify-between  w-full items-center ">
                         <h1 class="text-2xl font-bold">{{ $propertie->title }}</h1>
                         <div class="flex gap-2 w-fit mr-2">
@@ -173,15 +175,15 @@
                     <h1 class="text-xl"> <i class="fa-solid fa-money-bill mr-2"></i>Price per night :
                         {{ $propertie->price_per_night }} </h1>
                 </div>
-                <div class="border rounded-lg w-full px-2 flex flex-col gap-3 py-3 bg-white">
+                <div class="  w-full px-2 flex flex-col gap-3 py-3 border-b-2 border-gray-200 pb-10">
                     <h1 class="text-2xl font-bold">Description : </h1>
                     <p class="text-xl">{{ $propertie->description }}</p>
                 </div>
-                <div class="border rounded-lg w-full px-2 flex flex-col gap-3 py-3 bg-white">
+                <div class="  w-full px-2 flex flex-col gap-3 py-3">
                     <h1 class="text-2xl font-bold">Reviews</h1>
                     {{-- <h1 class="text-4xl font-bold">9/10</h1> --}}
                     @foreach ($latestReviews as $review)
-                        <div class="border p-1 rounded-lg">
+                        <div class="border p-1 bg-white rounded-lg">
                             <div class="flex gap-2 font-bold p-3">
                                 <svg xml:space="preserve" style="enable-background: new 0 0 16 16" viewBox="0 0 16 16"
                                     y="0px" x="0px" id="Layer_1_1_" version="1.1" class="avatar">
@@ -194,7 +196,7 @@
                             <p class="pl-12">{{ $review->description }}</p>
                         </div>
                     @endforeach
-                    <div class="py-2 {{ $propertie->user->name == Auth::user()->name? 'hidden' : '' }}">
+                    <div class="py-2 {{ $propertie->user->name == Auth::user()->name ? 'hidden' : '' }}">
                         <form action="{{ route('review.store') }}" method="POST">
                             @csrf
                             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
@@ -220,8 +222,11 @@
                     </div>
                 </div>
             </div>
-            <div class="sm:w-[50%]  bg-white rounded-lg p-5">
+            <div class="sm:w-[50%] flex flex-col gap-6 bg-white rounded-sm p-5">
                 <div id='calendar' class="h-[75vh]"></div>
+                <div>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14260.278375030784!2d-1.8726392922554729!3d38.102153159164104!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd65ad0d625cc5bb%3A0x1ebcd51e92bfaacf!2sTurismo%20Caravaca!5e0!3m2!1sfr!2sma!4v1716681176611!5m2!1sfr!2sma" class="w-full" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
             </div>
             @include('propetie.reservation_modal')
         </div>

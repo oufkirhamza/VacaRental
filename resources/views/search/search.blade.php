@@ -6,12 +6,14 @@
                 <h1 class="text-4xl font-bold text-white">Unlock Your Next Adventure: Explore Unique Vacation Rentals!</h1>
             </div>
         </div>
-        <div class="flex">
-            <div class="w-[30%] flex flex-col min-h-[100vh] items-center  bg-white p-4">
+
+        <div class="flex flex-col py-3 items-center ">
+            <div class="sticky top-0 bg-gray-200 z-30 flex items-center justify-start w-full pl-[10vw] py-3">
                 <h1 class="text-2xl font-bold mb-2">Search</h1>
+                {{-- title --}}
                 <form class="flex  ">
                     {{-- <label for="search">Search by title :</label> --}}
-                    <div class="flex w-fit mx-10 rounded bg-gray-200">
+                    <div class="flex w-fit mx-10 rounded bg-white">
                         <input class=" w-full border-none bg-transparent px-4 py-1  outline-none focus:outline-none "
                             type="search" name="search" placeholder="Title" />
                         <button type="submit" class="m-2 rounded bg-blue-600 px-4 py-2 text-white">
@@ -25,10 +27,10 @@
                         </button>
                     </div>
                 </form>
-                <h1 class="text-2xl font-bold mb-2">City</h1>
+                {{-- city --}}
                 <form class="flex">
                     {{-- <label for="search">Search by title :</label> --}}
-                    <div class="flex w-fit mx-10 rounded bg-gray-200">
+                    <div class="flex w-fit mx-10 rounded bg-white">
                         <input class=" w-full border-none bg-transparent px-4 py-1  outline-none focus:outline-none "
                             type="search" name="city" placeholder="City" />
                         <button type="submit" class="m-2 rounded bg-blue-600 px-4 py-2 text-white">
@@ -42,25 +44,32 @@
                         </button>
                     </div>
                 </form>
-
+                {{-- reset --}}
+                <form >
+                    <input type="hidden" name="city"/>
+                    <button class="m-2 rounded bg-blue-600 px-4 py-3 text-white">Reset</button>
+                </form>
             </div>
-            <div class="flex w-[70%] h-fit flex-wrap py-16 justify-start ml-10  gap-4">
+            <div class="flex w-[90%] justify-start h-fit flex-wrap py-16 ml-10 gap-4">
                 @if (count($properties) > 0)
                     @foreach ($properties as $propertie)
                         <div
-                            class="relative flex w-[28%] mb-10 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
+                            class="relative flex w-[23%] mb-10 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
                             <div
                                 class="relative mx-4 -mt-6 h-40 overflow-hidden rounded-xl  bg-clip-border text-white shadow-lg shadow-blue-gray-500/40 bg-gradient-to-r from-blue-500 to-blue-600">
-                                    <img src="{{ asset('storage/img/' . $propertie->images[0]->image ) }}"  alt="">
+                                <img src="{{ asset('storage/img/' . $propertie->images[0]->image) }}" alt="">
                             </div>
                             <div class="p-6 font-medium">
-                                <div class="flex justify-between">
+                                <div class="flex flex-col justify-between">
                                     <h5
                                         class="mb-2 block font-sans text-xl font-semibold leading-snug tracking-normal text-blue-gray-900 antialiased">
                                         {{ $propertie->title }}
                                     </h5>
-                                    <h5><i class="fa-solid fa-star text-yellow-300"></i> {{ $ratings[$propertie->id] }} (
-                                        {{ $numReviewsArray[$propertie->id] }} reviews) </h5>
+                                    <div class="flex justify-between">
+                                        <p><i class="fa-solid fa-star text-yellow-300"></i> {{ $ratings[$propertie->id] }}
+                                        </p>
+                                        <p>({{ $numReviewsArray[$propertie->id] }} reviews)</p>
+                                    </div>
                                 </div>
                                 <p class="block font-sans text-base font-light leading-relaxed text-inherit antialiased">
                                     <i class="fa-solid fa-location-dot"></i>
@@ -76,10 +85,12 @@
                                 </p>
                             </div>
                             <div class="p-6 pt-0">
-                                <button data-ripple-light="true" type="button"
-                                    class="select-none rounded-lg bg-[#002e45] py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-900/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
-                                    <a href="{{ route('propertie.show', $propertie) }}">Book now</a>
-                                </button>
+                                <a href="{{ route('propertie.show', $propertie) }}">
+                                    <button data-ripple-light="true" type="button"
+                                        class="select-none rounded-lg bg-[#002e45] py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-900/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none">
+                                        Book now
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     @endforeach
